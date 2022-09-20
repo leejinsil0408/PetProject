@@ -1,6 +1,6 @@
 package com.example.petproject01.service;
 
-import com.example.petproject01.entity.Notice;
+import com.example.petproject01.entity.Notice.Notice;
 import com.example.petproject01.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class NoticeServiceImpl implements NoticeService {
     private NoticeRepository noticeRepo;
 
     @Override
-    public List<Notice> NoticeList() {
+    public List<Notice> NoticeList(Notice notice) {
         return (List<Notice>) noticeRepo.findAll();
     }
 

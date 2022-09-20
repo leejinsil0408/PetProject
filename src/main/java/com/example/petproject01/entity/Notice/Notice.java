@@ -1,4 +1,4 @@
-package com.example.petproject01.entity;
+package com.example.petproject01.entity.Notice;
 
 /**
  * @package : com.example.petproject01.entity;
@@ -13,6 +13,8 @@ package com.example.petproject01.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -23,18 +25,22 @@ import java.util.Date;
 @Entity
 public class Notice {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
+    @Column(length = 40, nullable = false)
     private String title;
 
     @Column(updatable = false)
     private String writer;
 
+    @Column(nullable = false)
     private String content;
 
+    @Column(insertable = false, updatable = false)
     private Date createDate;
 
+    @ColumnDefault("0")
     private long cnt;
-
 }
