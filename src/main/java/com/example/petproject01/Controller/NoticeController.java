@@ -25,7 +25,7 @@ import java.util.List;
             List<Notice> noticeList = noticeService.NoticeList(notice);
 
             model.addAttribute("noticeList", noticeList);
-            return "/Notice/NoticeList";
+            return "/Notice/getNoticeList";
         }
 
         @GetMapping("/insertNotice")
