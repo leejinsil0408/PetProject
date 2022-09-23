@@ -45,5 +45,6 @@ public class Notice {
 
     @ColumnDefault("0")
     private long cnt;
+
 }
 

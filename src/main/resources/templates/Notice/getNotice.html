@@ -44,10 +44,13 @@
     </table>
 </form>
 
-<a th:href="@{/getNoticeList}">글등록</a>
-<a th:href="@{/getNoticeList}">글목록</a>
-<a th:href="@{/deleteNotice(seq=${notice.seq})}">글삭제</a>
+<a th:href="@{/Notice/NoticeList}">목록</a>
+<a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}">글삭제</a>
 <!--글삭제링크를 클릭했을때 삭제할 게시글의 일련번호를 파라미터로 전달-->
-
+<div th:each="img :${imgLoading}">
+    <img th:src="@{${img}}" alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center">
+    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+        <p class="leading-relaxed">test text</p>
+</div>
 </body>
 </html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script th:inline="javascript">
+
+//컨트롤러에서 메시지를 전송하고 담아서 alert에서 문구를 띄어준다
+  /*<![CDATA[*/
+
+  var message = [[${message}]];
+  alert(message);
+
+//페이지 이동
+  location.replace([[${searchUrl}]]);
+  /*]]>*/
+</script>
+
+<body>
+
+</body>
+</html>
