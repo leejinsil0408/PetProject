@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -60,6 +62,11 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public List<FileUploadEntity> getFileUploadEntity2(Long notice_seq) {
         return fileRepo.findByNoticeSeq(notice_seq);
+    }
+
+    @Override
+    public List<Notice> searchNotice(String keyword){
+        return noticeRepo.findAllSearch(keyword);
     }
 
 }
