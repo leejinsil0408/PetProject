@@ -1,4 +1,4 @@
-package com.example.petproject01.entity.Notice;
+package com.example.petproject01.entity;
 
 /*
  * @package : com.example.petproject01.entity;
@@ -14,12 +14,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@DynamicInsert
+@DynamicUpdate
 
 @Getter
 @Setter
@@ -39,6 +43,8 @@ public class Notice {
 
     @Column(nullable = false)
     private String content;
+
+    private String category;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createDate;

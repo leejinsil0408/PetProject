@@ -1,7 +1,7 @@
 package com.example.petproject01.Controller;
 
 import com.example.petproject01.entity.Data.FileUploadEntity;
-import com.example.petproject01.entity.Notice.Notice;
+import com.example.petproject01.entity.Notice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -89,9 +89,11 @@ import java.util.UUID;
         List<FileUploadEntity> fileUploadEntity = noticeService.getFileUploadEntity2(notice.getSeq());
         List<String> path = new ArrayList<>();
         for (FileUploadEntity fe : fileUploadEntity) {
-            String savePath = "/Notice/upload/" + fe.getUuid() + "_" + fe.getOriginalFilename();
+            String savePath = "/Notice/image/" + fe.getUuid() + "_" + fe.getOriginalFilename();
             path.add(savePath);
         }
+        /* 조회수 */
+        noticeService.updateCnt(notice.getSeq());
         model.addAttribute("notice", noticeService.getNotice(notice));
         model.addAttribute("imgLoading", path);
         return "/Notice/getNotice";
@@ -153,10 +155,12 @@ import java.util.UUID;
     }
 
     /* 검색 */
-    @PostMapping("/list")
+    @PostMapping("/searchList")
     public String search(@RequestParam("keyword") String keyword, Model model) {
         model.addAttribute("keyword", noticeService.searchNotice(keyword));
-        return "/Notice/list";
+        return "/Notice/searchList";
     }
+
+
 }
 

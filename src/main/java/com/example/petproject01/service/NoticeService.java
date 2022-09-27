@@ -1,7 +1,7 @@
 package com.example.petproject01.service;
 
 import com.example.petproject01.entity.Data.FileUploadEntity;
-import com.example.petproject01.entity.Notice.Notice;
+import com.example.petproject01.entity.Notice;
 import com.example.petproject01.repository.NoticeRepository;
 
 import javax.transaction.Transactional;
@@ -27,5 +27,7 @@ public interface NoticeService {
 
     /* 검색 */
     List<Notice> searchNotice(String keyword);
+
+    int updateCnt(Long seq);
 
 }
