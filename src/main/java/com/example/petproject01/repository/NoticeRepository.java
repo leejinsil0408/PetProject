@@ -18,7 +18,7 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
   List<Notice> findAllSearch(String keyword);
 
 //  @Query(value = "SELECT n from Notice n where n.category like %n.title% and %:keyword%" )
-//  조회수
+//  조회수 기능
   @Modifying
   @Query("UPDATE Notice n set n.cnt = n.cnt + 1 WHERE n.seq = :seq")
   int updateCnt(long seq);

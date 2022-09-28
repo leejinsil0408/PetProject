@@ -20,12 +20,12 @@ public interface NoticeService {
 
     void deleteNotice(Notice notice);
 
-    /* 파일 업로드  */
+    /*  파일 업로드  */
 
     Long insertFileUploadEntity(FileUploadEntity fileUploadEntity);
     List<FileUploadEntity> getFileUploadEntity2(Long notice_seq);
 
-    /* 검색 */
+    /*  검색  */
     List<Notice> searchNotice(String keyword);
 
     int updateCnt(Long seq);
