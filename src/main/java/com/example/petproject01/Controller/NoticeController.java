@@ -2,8 +2,11 @@ package com.example.petproject01.Controller;
 
 import com.example.petproject01.entity.Data.FileUploadEntity;
 import com.example.petproject01.entity.Notice;
+import com.example.petproject01.repository.NoticeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +33,7 @@ import java.util.UUID;
 
     @Autowired
     private NoticeService noticeService;
+    private NoticeRepository noticeRepo;
 
     @GetMapping("/NoticeList")
     public String NoticeList(Model model, Notice notice) {
@@ -160,7 +164,5 @@ import java.util.UUID;
         model.addAttribute("keyword", noticeService.searchNotice(keyword));
         return "/Notice/searchList";
     }
-
-
 }
 
