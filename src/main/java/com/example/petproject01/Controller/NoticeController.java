@@ -24,8 +24,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-
-
 @Controller
 @Slf4j
     @RequestMapping(path = "/Notice")
@@ -33,16 +31,16 @@ import java.util.UUID;
 
     @Autowired
     private NoticeService noticeService;
-    private NoticeRepository noticeRepo;
 
+    //공지사항 목록
     @GetMapping("/NoticeList")
     public String NoticeList(Model model, Notice notice) {
         List<Notice> noticeList = noticeService.NoticeList(notice);
-
         model.addAttribute("noticeList", noticeList);
         return "/Notice/getNoticeList";
     }
 
+    //공지사항 쓰기
     @GetMapping("/insertNotice")
     public String insertNotice() {
         return "/Notice/insertNotice";
@@ -103,7 +101,7 @@ import java.util.UUID;
         return "/Notice/getNotice";
     }
 
-
+    //공지사항 수정
     @PostMapping("/updateNotice")
     public String updateNotice(Notice notice) {
         noticeService.updateNotice(notice);
@@ -116,12 +114,14 @@ import java.util.UUID;
         return "/Notice/insertNotice";
     }
 
+    //공지사항 삭제
     @GetMapping("/deleteNotice")
     public String deleteNotice(Notice notice) {
         noticeService.deleteNotice(notice);
         return "redirect:/Notice/NoticeList";
     }
 
+    //파일 업로드
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("uploadfile") MultipartFile[] uploadfile,
                              @RequestParam("seq") Long input_seq) throws IOException {
@@ -158,7 +158,7 @@ import java.util.UUID;
         return new ResponseEntity<byte[]>(imgByteArr, HttpStatus.OK);
     }
 
-    /* 검색 */
+    // 검색
     @PostMapping("/searchList")
     public String search(@RequestParam("keyword") String keyword, Model model) {
         model.addAttribute("keyword", noticeService.searchNotice(keyword));
