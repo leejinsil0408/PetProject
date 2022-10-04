@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import com.example.petproject01.service.NoticeService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 
 
 import java.io.*;
@@ -33,10 +36,19 @@ import java.util.UUID;
     private NoticeService noticeService;
 
     //공지사항 목록
-    @GetMapping("/NoticeList")
-    public String NoticeList(Model model, Notice notice) {
+    @GetMapping("/getNoticeList")
+    public String NoticeList(
+            @PageableDefault(size=5, sort="seq", direction = Sort.Direction.DESC) Pageable pageable, Model model, Notice notice) {
         List<Notice> noticeList = noticeService.NoticeList(notice);
-        model.addAttribute("noticeList", noticeList);
+        Page<Notice> noticePage = noticeService.NOTICE_PAGE(pageable);
+        System.out.println("전체 페이지 개수=" + noticePage.getTotalPages());
+        System.out.println("전체 레코드 개수=" + noticePage.getTotalElements());
+        System.out.println("현재 페이지 개수=" + noticePage.getNumber());
+        System.out.println("한 페이지의 글 개수=" + noticePage.getSize());
+        System.out.println("정렬=" + noticePage.getSort());
+        System.out.println("number,size,sort=" + noticePage.getPageable());
+        model.addAttribute("noticeList",noticeList);
+        model.addAttribute("noticePage",noticePage);
         return "/Notice/getNoticeList";
     }
 
@@ -78,7 +90,7 @@ import java.util.UUID;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/Notice/NoticeList";
+        return "redirect:/Notice/getNoticeList";
 //            return "/message";
     }
 
@@ -118,7 +130,7 @@ import java.util.UUID;
     @GetMapping("/deleteNotice")
     public String deleteNotice(Notice notice) {
         noticeService.deleteNotice(notice);
-        return "redirect:/Notice/NoticeList";
+        return "redirect:/Notice/getNoticeList";
     }
 
     //파일 업로드

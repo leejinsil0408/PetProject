@@ -5,6 +5,10 @@ import com.example.petproject01.entity.Notice;
 import com.example.petproject01.repository.FileRepository;
 import com.example.petproject01.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
 
@@ -15,7 +19,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
-
 
     private NoticeRepository noticeRepo;
     private FileRepository fileRepo;
@@ -30,6 +33,10 @@ public class NoticeServiceImpl implements NoticeService {
     public List<Notice> NoticeList(Notice notice) {
         return (List<Notice>) noticeRepo.findAll();
     }
+
+    @Override
+    public Page<Notice> NOTICE_PAGE(Pageable pageable) {
+        return noticeRepo.findAll(pageable);}
 
     @Override
     public Long insertNotice(Notice notice) {

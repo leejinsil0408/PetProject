@@ -14,7 +14,7 @@
 <a href="/board/getCommentstList?seq=1">comments 조회</a>
 <a href="/board/insertBoard">게시글 입력</a>
 <a href="/account/insertAccount">회원 입력</a>
-<a href="/Notice/NoticeList">공지사항</a>
+<a><button th:onclick="|location.href='@{/Notice/getNoticeList(page=0,size=5)}'|">공지사항</button></a>
 <hr>
 <h1>회원가입 index page test</h1>
 <p th:text="${msg}"></p>
