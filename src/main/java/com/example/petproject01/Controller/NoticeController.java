@@ -2,7 +2,9 @@ package com.example.petproject01.Controller;
 
 import com.example.petproject01.entity.Data.FileUploadEntity;
 import com.example.petproject01.entity.Notice;
+import com.example.petproject01.entity.Reply;
 import com.example.petproject01.repository.NoticeRepository;
+import com.example.petproject01.service.ReplyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,8 +34,14 @@ import java.util.UUID;
     @RequestMapping(path = "/Notice")
     public class NoticeController {
 
+    private final NoticeService noticeService;
+    private final ReplyService replyService;
+
     @Autowired
-    private NoticeService noticeService;
+    private NoticeController (NoticeService noticeService, ReplyService replyService) {
+        this.noticeService = noticeService;
+        this.replyService = replyService;
+    }
 
     //공지사항 목록
     @GetMapping("/getNoticeList")
@@ -98,7 +106,7 @@ import java.util.UUID;
     /*-----READ------*/
     //공지사항 상세
     @GetMapping("/getNotice")
-    public String getNotice(Notice notice, Model model) {
+    public String getNotice(Notice notice, Reply reply, Model model) {
 
         List<FileUploadEntity> fileUploadEntity = noticeService.getFileUploadEntity2(notice.getSeq());
         List<String> path = new ArrayList<>();
@@ -108,6 +116,8 @@ import java.util.UUID;
         }
         /* 조회수 */
         noticeService.updateCnt(notice.getSeq());
+        model.addAttribute("reply", replyService.getReplyList(reply));
+        List<Reply> replyList = replyService.getReplyList(reply);
         model.addAttribute("notice", noticeService.getNotice(notice));
         model.addAttribute("imgLoading", path);
         return "/Notice/getNotice";
@@ -175,6 +185,28 @@ import java.util.UUID;
     public String search(@RequestParam("keyword") String keyword, Model model) {
         model.addAttribute("keyword", noticeService.searchNotice(keyword));
         return "/Notice/searchList";
+    }
+
+    //댓글
+    @PostMapping("/insertReply")
+    public String insertReply(Reply reply) {
+        replyService.insertReply(reply);
+
+        return "redirect:/Notice/getNotice";
+    }
+
+    @GetMapping("/deleteReply")
+    public String deleteReply(Reply reply) {
+        replyService.deleteReply(reply);
+
+        return "redirect:/Notice/getNotice";
+    }
+
+    @PostMapping("/updateReply")
+    public String updateReply(Reply reply) {
+        replyService.updateReply(reply);
+
+        return "redirect:/Notice/getNotice";
     }
 }
 

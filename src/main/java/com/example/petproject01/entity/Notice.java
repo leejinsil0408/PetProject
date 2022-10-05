@@ -20,7 +20,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @DynamicInsert
 @DynamicUpdate
@@ -29,7 +31,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
-public class Notice {
+public class Notice implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

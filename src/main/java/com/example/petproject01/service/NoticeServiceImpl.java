@@ -2,6 +2,7 @@ package com.example.petproject01.service;
 
 import com.example.petproject01.entity.Data.FileUploadEntity;
 import com.example.petproject01.entity.Notice;
+import com.example.petproject01.entity.Reply;
 import com.example.petproject01.repository.FileRepository;
 import com.example.petproject01.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public Long insertNotice(Notice notice) {
+        Reply reply = new Reply();
+        reply.setNotice(notice);
         return noticeRepo.save(notice).getSeq();
     }
 
