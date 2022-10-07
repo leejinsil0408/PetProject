@@ -16,25 +16,28 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Reply implements Serializable {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Comment")
-    private Long r_seq;
+public class Reply {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //댓글번호, 작성자, 내용, 원글
+    private Long id;
+
+    @Column(nullable = false)
+    private String content;
 
     @Column(updatable = false)
     private String r_writer;
-
-//    @Column(nullable = false)
-    private String Reply;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date r_createDate;
 
     @ManyToOne
-    @JoinColumn(name = "seq", referencedColumnName = "seq")
+    @JoinColumn(name= "Notice_seq" ) //참조하고자 하는 테이블 entity
     private Notice notice;
 
-    @Column(updatable = false)
-    private Long notice_seq;
+
+    public void save(Notice notice) {
+        this.notice = notice;
+    }
 
 }

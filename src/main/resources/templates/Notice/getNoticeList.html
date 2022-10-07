@@ -58,14 +58,7 @@
         [HTML(클라이언트)]seq=${board.seq} 에서 [JAVA(서버)]@RequestParam으로 매개변수 전달
         seq(변수명) = ${board.seq}(HTML(타임리프)에서의 데이터(클라이언트)
         -->
-        <td> <a th:href="@{/Notice/getNotice(
-                                seq=${Notice.seq},
-                                title=${Notice.title},
-                                writer=${Notice.writer},
-                                content=${Notice.content},
-                                createDate=${Notice.createDate},
-                                cnt=${Notice.cnt}
-                                )}"
+        <td> <a th:href="@{/Notice/getNotice(seq=${Notice.seq})}"
                 th:text="${Notice.title}"></a></td>
         <!--        <td th:text="${board.title}"></td>-->
         <td th:text="${Notice.writer}"></td>

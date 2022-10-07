@@ -11,11 +11,10 @@ public interface ReplyService {
 
 List<Reply> getReplyList(Reply reply);
 
-void insertReply(Reply reply);
+void insertReply(Long noticeId,Reply reply);
 
 void updateReply(Reply reply);
 
 void deleteReply(Reply reply);
-
 
 }

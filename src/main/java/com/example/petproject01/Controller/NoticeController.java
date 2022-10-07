@@ -107,7 +107,6 @@ import java.util.UUID;
     //공지사항 상세
     @GetMapping("/getNotice")
     public String getNotice(Notice notice, Reply reply, Model model) {
-
         List<FileUploadEntity> fileUploadEntity = noticeService.getFileUploadEntity2(notice.getSeq());
         List<String> path = new ArrayList<>();
         for (FileUploadEntity fe : fileUploadEntity) {
@@ -185,28 +184,6 @@ import java.util.UUID;
     public String search(@RequestParam("keyword") String keyword, Model model) {
         model.addAttribute("keyword", noticeService.searchNotice(keyword));
         return "/Notice/searchList";
-    }
-
-    //댓글
-    @PostMapping("/insertReply")
-    public String insertReply(Reply reply) {
-        replyService.insertReply(reply);
-
-        return "redirect:/Notice/getNotice";
-    }
-
-    @GetMapping("/deleteReply")
-    public String deleteReply(Reply reply) {
-        replyService.deleteReply(reply);
-
-        return "redirect:/Notice/getNotice";
-    }
-
-    @PostMapping("/updateReply")
-    public String updateReply(Reply reply) {
-        replyService.updateReply(reply);
-
-        return "redirect:/Notice/getNotice";
     }
 }
 

@@ -1,91 +1,99 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <script th:src="@{/js/reply.js}"></script>
     <title>공지사항 상세</title>
 </head>
-
 <body th:align="center">
+    <h1>공지사항 상세</h1>
+    <form th:action="@{/Notice/updateNotice}" method="post">
+        <input name="seq" type="hidden" th:value="${notice.seq}">
+        <!--수정할게시글번호-->
+        <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
+            <tr>
+                <td bgcolor="orange" th:text="제목" width="80"></td>
+                <td><input name="title" type="text" th:value="${notice.title}"></td>
+                <!--제목수정-->
+            </tr>
+            <tr>
+                <td bgcolor="orange" th:text="작성자"></td>
+                <td th:text="${notice.writer}"></td>
+            </tr>
+            <tr>
+                <td bgcolor="orange" th:text="내용"></td>
+                <td>
+                    <textarea name="content" th:text="${notice.content}" cols="80" rows="30">
+                    </textarea>
+                    <!--글삭제링크를 클릭했을때 삭제할 게시글의 일련번호를 파라미터로 전달-->
+                    <div th:each="img :${imgLoading}">
+                        <img th:src="@{${img}}" alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center">
+                        <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                        </div>
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="orange" th:text="등록일"></td>
+                <td th:text="${notice.createDate}"></td>
+            </tr>
+            <tr>
+                <td bgcolor="orange" th:text="조회수"></td>
+                <td th:text="${notice.cnt}"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="게시글수정">
+                </td>
+            </tr>
+        </table>
+    </form>
 
-<h1>공지사항 상세</h1>
-<form th:action="@{/Notice/updateNotice}" method="post">
-    <input name="seq" type="hidden" th:value="${notice.seq}">
-    <!--수정할게시글번호-->
-    <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
-        <tr>
-            <td bgcolor="orange" th:text="제목" width="80"></td>
-            <td><input name="title" type="text" th:value="${notice.title}"></td>
-            <!--제목수정-->
-        </tr>
-        <tr>
-            <td bgcolor="orange" th:text="작성자"></td>
-            <td th:text="${notice.writer}"></td>
-        </tr>
-        <tr>
-            <td bgcolor="orange" th:text="내용">
-            <td>
-                <textarea name="content" th:text="${notice.content}" cols="40" rows="10"></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td bgcolor="orange" th:text="등록일"></td>
-            <td th:text="${notice.createDate}"></td>
-        </tr>
-        <tr>
-            <td bgcolor="orange" th:text="조회수"></td>
-            <td th:text="${notice.cnt}"></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center">
-                <input type="submit" value="게시글수정">
-            </td>
-        </tr>
-    </table>
-</form>
-</form>
-<form th:action="insertReply" method="post">
-    <table class="table table-striped" th:align="center" border="1" th:cellpadding="0" th:cellspacing="0"  >
-        <tr>
-            <td th:text="작성자" ></td>
-            <td th:text="댓글" ></td>
-            <td th:text="작성날짜" ></td>
-        </tr>
-        <tr th:if="${reply.notice_seq == notice.seq}" th:each = "reply : ${ReplyList}">
-
-            <td th:text = "${reply.r_writer}"></td>
-            <td th:text = "${reply.Reply}"></td>
-            <td th:text = "${reply.r_createDate}"></td>
-        </tr>
-    </table>
-    <table class="table table-striped" th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
-        <input name="board_seq" type="hidden" th:value="${notice.seq}">
-        <tr>
-            <td th:text="작성자" th:width="80"></td>
-            <td><label>
-                <textarea name="c_writer"  size="40"></textarea>
-            </label></td>
-        </tr>
-        <tr>
-            <td th:text="댓글입력" th:width="80"></td>
-            <td><label>
-                <textarea name="comment1"  cols="40" rows="10" ></textarea>
-            </label></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center">
-                <input type="submit" value="댓글등록"></td>
-        </tr>
-    </table>
-</form>
-</div>
-<img th:src="@{${imgLoading}}"/>
-<a th:href="@{/Notice/getNoticeList}">목록</a>
-<a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}">글삭제</a>
-<!--글삭제링크를 클릭했을때 삭제할 게시글의 일련번호를 파라미터로 전달-->
-<!--<div th:each="img :${imgLoading}">-->
-<!--    <img th:src="@{${img}}" alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center">-->
-<!--    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">-->
-<!--        <p class="leading-relaxed">test text</p>-->
-<!--</div>-->
+    <br>
+    <div class="card mb-2 mt-5">
+        <div class="card-header bg-light">
+            <i class="fa fa-comment fa"></i>
+        </div>
+        <form>
+            <div class="card-body">
+                <input type="hidden" id="noticeId" th:value="${notice.seq}">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <textarea style="resize: none;" class="form-control" id="reply-content" cols="40" rows="10"></textarea>
+                        <button id="reply-btn-save" type="button" class="btn btn-dark mt-3">등록</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">댓글</div>
+                <ul id="reply--box" class="list-group" th:each="reply : ${notice.replyList}">
+                    <li th:id="'reply--' + ${reply.id}" class="list-group-item d-flex justify-content-between">
+                        <div th:text="${reply.content}"></div>
+                        <div class="d-flex">
+                            <span class="text-monospace mr-1">작성자: &nbsp;</span><div class="text-monospace mr-1" th:text="${reply.r_writer}"></div>
+                            <button class="badge btn-warning">수정</button><span> | </span>
+                            <button class="badge btn-danger">삭제</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+    <br/>
+    <!--<script th:src="@{/js/reply.js}"></script>-->
+    <a th:href="@{/Notice/getNoticeList}">목록</a>
+    <a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}" th:onclick="btnDel([[${notice.seq}]]);">글삭제</a>
+    <!--<a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}">글삭제</a>-->
+    <script>
+        // 삭제 클릭 시 --> 컨펌 후 --> 할 일 처리
+        function btnDel( seq ) {
+            // 컨펌 처리
+            if( confirm( seq + "번 게시글을 정말 삭제하시겠습니까?") == true ) {
+                location.href = '/Notice/deleteNotice?num=' + seq;
+                //실제 삭제할 데이터를 쿼리스트링을 이용해 전달
+            }
+            else {
+                return;
+            }
+        }
+    </script>
 </body>
 </html>
