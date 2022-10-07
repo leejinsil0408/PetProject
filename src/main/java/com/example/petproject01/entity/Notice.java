@@ -59,16 +59,10 @@ public class Notice implements Serializable {
 
     private String keyword;
 
-    // Notice 테이블에 댓글리스트를 추가 DB에는 하나의 raw 데이터에 하나의 값만 들어감
-    // 만약 여러 개의 데이터가 들어간다면 원자성이 깨지므로
-    // replyList는 DB에 FK로 생성되면 안되기 때문에 mappedBy를 사용
-    // mappedBy : 연관관계의 주인이 아니므로 DB의 FK가 아니다
-    // @OneToMany default fetch Lazy -> Eager 변경
-    // 무한 참조 발생 조치 , 최근순 설정
-    @OrderBy("id asc")
-    @JsonIgnoreProperties({"notice"})
-    @OneToMany(mappedBy = "notice", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<Reply> replyList = new ArrayList<>();
+    @OrderBy("r_seq desc ")
+    @OneToMany(mappedBy = "notice", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"notice"}) //reply 클래스에 board 객체를 다시 참조하는 무한 참조를 막아줌
+    private List<Reply> replys;
 
 }
 

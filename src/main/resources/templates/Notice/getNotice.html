@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script th:src="@{/js/reply.js}"></script>
     <title>공지사항 상세</title>
 </head>
 <body th:align="center">
@@ -46,13 +45,13 @@
             </tr>
         </table>
     </form>
-
+    <script th:src="@{/templates/js/notice.js}"></script>
     <br>
     <div class="card mb-2 mt-5">
         <div class="card-header bg-light">
             <i class="fa fa-comment fa"></i>
         </div>
-        <form>
+        <form th:action="@{/Notice/replyNotice}" method="post">
             <div class="card-body">
                 <input type="hidden" id="noticeId" th:value="${notice.seq}">
                 <ul class="list-group list-group-flush">
@@ -64,8 +63,8 @@
             </div>
             <div class="card">
                 <div class="card-header">댓글</div>
-                <ul id="reply--box" class="list-group" th:each="reply : ${notice.replyList}">
-                    <li th:id="'reply--' + ${reply.id}" class="list-group-item d-flex justify-content-between">
+                <ul id="reply--box" class="list-group" th:each="reply : ${notice.getReplys()}">
+                    <li th:id="'reply--' + ${reply.r_writer}" class="list-group-item d-flex justify-content-between">
                         <div th:text="${reply.content}"></div>
                         <div class="d-flex">
                             <span class="text-monospace mr-1">작성자: &nbsp;</span><div class="text-monospace mr-1" th:text="${reply.r_writer}"></div>
@@ -78,7 +77,7 @@
         </form>
     </div>
     <br/>
-    <!--<script th:src="@{/js/reply.js}"></script>-->
+    <!--<script th:src="@{/js/notice.js}"></script>-->
     <a th:href="@{/Notice/getNoticeList}">목록</a>
     <a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}" th:onclick="btnDel([[${notice.seq}]]);">글삭제</a>
     <!--<a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}">글삭제</a>-->

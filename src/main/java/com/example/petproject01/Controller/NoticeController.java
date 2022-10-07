@@ -185,5 +185,11 @@ import java.util.UUID;
         model.addAttribute("keyword", noticeService.searchNotice(keyword));
         return "/Notice/searchList";
     }
+
+    @PostMapping("/{notice_seq}/reply")
+    public String insertReply(@PathVariable int notice_seq, @RequestBody Reply reply) {
+        noticeService.insertReply(notice_seq,reply);
+        return "/Notice/getNotice";
+    }
 }
 

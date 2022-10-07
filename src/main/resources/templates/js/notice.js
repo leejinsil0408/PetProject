@@ -8,26 +8,24 @@ let replyIndex = {
     },
 
     insertReply: function () {
+        let seq = $("#seq").val();
         let data = {
-            content: $("#reply-content").val(),
-        }
-        let noticeId = $("#noticeId").val();
-        console.log(data)
-        console.log(noticeId)
+            content: $("#reply-content").val()
+        };
+
         $.ajax({
             type: "POST",
-            url: `/Notice/getNotice.html`,
+            url: `/Notice/getNotice/${seq}/reply`,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
-            dataType: "text"
-        }).done(function (res) {
+            dataType: "json"
+        }).done(function (resp) {
             alert("댓글작성이 완료되었습니다.");
-            location.href = `/Notice/${noticeId}`;
-        }).fail(function (err) {
+            location.href = `/Notice/${seq}`;
+        }).fail(function (error) {
             alert(JSON.stringify(err));
         });
-    },
-
+    }
 }
 replyIndex.init();
 

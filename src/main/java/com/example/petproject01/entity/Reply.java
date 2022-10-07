@@ -20,7 +20,7 @@ public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //댓글번호, 작성자, 내용, 원글
-    private Long id;
+    private Long r_seq;
 
     @Column(nullable = false)
     private String content;

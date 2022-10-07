@@ -84,4 +84,13 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepo.updateCnt(seq);
     }
 
+    @Override
+    public void insertReply(long notice_seq, Reply reply) {
+        Notice notice=noticeRepo.findById(notice_seq).orElseThrow(() -> {
+            return new IllegalArgumentException("댓글 쓰기 실패: 게시글 아이디를 찾을 수 없습니다.");
+        });
+
+        reply.setNotice((notice));
+    }
+
 }

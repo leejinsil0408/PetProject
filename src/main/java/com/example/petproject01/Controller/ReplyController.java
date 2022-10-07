@@ -4,17 +4,20 @@ import com.example.petproject01.entity.Reply;
 import com.example.petproject01.service.NoticeService;
 import com.example.petproject01.service.ReplyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
 public class ReplyController {
 
+    @Autowired
     private final ReplyService replyService;
 
+
     @PostMapping("/insertReply")
-    public String insertReply(@PathVariable Long noticeId, @RequestBody Reply reply) {
-        replyService.insertReply(noticeId, reply);
+    public String insertReply(@PathVariable Long seq, @RequestBody Reply reply) {
+        replyService.insertReply(seq, reply);
         return "redirect:/Notice/getNotice";
     }
 

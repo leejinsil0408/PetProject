@@ -36,7 +36,7 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public void updateReply(Reply reply) {
-        Reply findReply = replRepo.findById(reply.getId()).get();
+        Reply findReply = replRepo.findById(reply.getR_seq()).get();
         findReply.setR_writer(reply.getR_writer());
         findReply.setContent(reply.getContent());
         findReply.setR_createDate(reply.getR_createDate());
@@ -45,7 +45,7 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public void deleteReply(Reply reply) {
-        replRepo.deleteById(reply.getId());
+        replRepo.deleteById(reply.getR_seq());
 
     }
 }
