@@ -2,16 +2,13 @@ package com.example.petproject01.service;
 
 import com.example.petproject01.entity.Notice;
 import com.example.petproject01.entity.Reply;
-import com.example.petproject01.repository.FileRepository;
-import com.example.petproject01.repository.NoticeRepository;
+import com.example.petproject01.exception.DataNotFoundException;
 import com.example.petproject01.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 
 
 @Service

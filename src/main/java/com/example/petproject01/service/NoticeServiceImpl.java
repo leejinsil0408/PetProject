@@ -53,23 +53,11 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Notice getNotice(Notice notice) {
+    public Notice getNotice(Notice notice, Long seq) {
+
         return noticeRepo.findById(notice.getSeq()).get();
     }
 
-    @Override
-    public Notice getNotice1(Long seq) {
-
-        Optional<Notice> notice = noticeRepo.findById(seq);
-
-        if(notice.isPresent()) {
-            return notice.get();
-        }
-       else {
-           throw new DataNotFoundException("not found");
-        }
-
-    }
 
     @Override
     public void updateNotice(Notice notice) {

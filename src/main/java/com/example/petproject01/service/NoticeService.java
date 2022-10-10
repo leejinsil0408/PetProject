@@ -23,8 +23,8 @@ public interface NoticeService {
 
     Long insertNotice(Notice notice);
 
-    Notice getNotice(Notice notice);
-     Notice getNotice1(Long seq);
+    Notice getNotice(Notice notice, Long seq);
+
 
     void updateNotice(Notice notice);
 

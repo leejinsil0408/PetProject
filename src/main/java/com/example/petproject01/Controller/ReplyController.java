@@ -20,9 +20,9 @@ public class ReplyController {
     private final ReplyService replyService;
     private final NoticeService noticeService;
 
-    @PostMapping("/create/{seq}")
-    public String createReply(Model model, @PathVariable("seq") Long seq, @RequestParam String content) {
-        Notice notice = this.noticeService.getNotice1(seq);
+    @PostMapping("/create/{r_seq}")
+    public String createReply(Model model, @PathVariable("r_seq") Long seq, @RequestParam String content) {
+        Notice notice = this.noticeService.getNotice(seq);
         this.replyService.create(notice, content);
         return String.format("redirect:/Notice/getNotice/%s", seq);
     }
