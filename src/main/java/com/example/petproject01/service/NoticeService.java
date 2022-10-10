@@ -6,6 +6,7 @@ import com.example.petproject01.entity.Reply;
 import com.example.petproject01.repository.NoticeRepository;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,7 @@ public interface NoticeService {
     Long insertNotice(Notice notice);
 
     Notice getNotice(Notice notice);
+     Notice getNotice1(Long seq);
 
     void updateNotice(Notice notice);
 
@@ -40,8 +42,8 @@ public interface NoticeService {
 
     int updateCnt(Long seq);
 
-    @Transactional
-    void insertReply(long notice_id, Reply reply);
+//    @Transactional
+//    void insertReply(long seq, Reply reply);
 
     }
 

@@ -59,10 +59,10 @@ public class Notice implements Serializable {
 
     private String keyword;
 
-    @OrderBy("r_seq desc ")
+    @OrderBy("r_seq desc")
     @OneToMany(mappedBy = "notice", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"notice"}) //reply 클래스에 board 객체를 다시 참조하는 무한 참조를 막아줌
-    private List<Reply> replys;
+    private List<Reply> replyList;
 
 }
 

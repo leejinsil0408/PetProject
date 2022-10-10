@@ -3,8 +3,11 @@ package com.example.petproject01.service;
 import com.example.petproject01.entity.Data.FileUploadEntity;
 import com.example.petproject01.entity.Notice;
 import com.example.petproject01.entity.Reply;
+import com.example.petproject01.exception.DataNotFoundException;
 import com.example.petproject01.repository.FileRepository;
 import com.example.petproject01.repository.NoticeRepository;
+import com.example.petproject01.repository.ReplyRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +19,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +27,8 @@ public class NoticeServiceImpl implements NoticeService {
 
     private NoticeRepository noticeRepo;
     private FileRepository fileRepo;
+
+    private ReplyRepository replRepo;
 
     @Autowired
     protected NoticeServiceImpl(NoticeRepository noticeRepo, FileRepository fileRepo){
@@ -49,6 +55,20 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public Notice getNotice(Notice notice) {
         return noticeRepo.findById(notice.getSeq()).get();
+    }
+
+    @Override
+    public Notice getNotice1(Long seq) {
+
+        Optional<Notice> notice = noticeRepo.findById(seq);
+
+        if(notice.isPresent()) {
+            return notice.get();
+        }
+       else {
+           throw new DataNotFoundException("not found");
+        }
+
     }
 
     @Override
@@ -84,13 +104,13 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepo.updateCnt(seq);
     }
 
-    @Override
-    public void insertReply(long notice_seq, Reply reply) {
-        Notice notice=noticeRepo.findById(notice_seq).orElseThrow(() -> {
-            return new IllegalArgumentException("댓글 쓰기 실패: 게시글 아이디를 찾을 수 없습니다.");
-        });
-
-        reply.setNotice((notice));
-    }
-
+//    @Override
+//    public void cReply(long notice_seq, Reply reply) {
+//        Notice notice=noticeRepo.findById(notice_seq).orElseThrow(() -> {
+//            return new IllegalArgumentException("댓글 쓰기 실패: 게시글 아이디를 찾을 수 없습니다.");
+//        });
+//
+//        reply.setNotice((notice));
+//        replRepo.save(reply);
+//    }
 }

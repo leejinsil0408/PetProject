@@ -2,7 +2,7 @@
 
 let replyIndex = {
     init: function () {
-        $("#reply-btn-save").on("click", () => {
+        $("#btn-reply-save").on("click", () => {
             this.insertReply();
         });
     },
@@ -15,7 +15,7 @@ let replyIndex = {
 
         $.ajax({
             type: "POST",
-            url: `/Notice/getNotice/${seq}/reply`,
+            url: `/js/detail.jsp`,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"

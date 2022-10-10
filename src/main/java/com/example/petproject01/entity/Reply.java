@@ -8,14 +8,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
+@Builder
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +23,6 @@ public class Reply {
 
     @Column(nullable = false)
     private String content;
-
-    @Column(updatable = false)
-    private String r_writer;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date r_createDate;

@@ -5,7 +5,9 @@ import com.example.petproject01.entity.Notice;
 import com.example.petproject01.entity.Reply;
 import com.example.petproject01.repository.NoticeRepository;
 import com.example.petproject01.service.ReplyService;
+import com.example.petproject01.service.ReplyServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.*;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -105,21 +108,35 @@ import java.util.UUID;
 
     /*-----READ------*/
     //공지사항 상세
+//    @GetMapping("/getNotice")
+//    public String getNotice(Notice notice, Reply reply, Model model) {
+//        List<FileUploadEntity> fileUploadEntity = noticeService.getFileUploadEntity2(notice.getSeq());
+//        List<String> path = new ArrayList<>();
+//        for (FileUploadEntity fe : fileUploadEntity) {
+//            String savePath = "/Notice/image/" + fe.getUuid() + "_" + fe.getOriginalFilename();
+//            path.add(savePath);
+//        }
+//        /* 조회수 */
+//        noticeService.updateCnt(notice.getSeq());
+//        model.addAttribute("reply", replyService.getReplyList(reply));
+//        List<Reply> replyList = replyService.getReplyList(reply);
+//        model.addAttribute("notice", noticeService.getNotice(notice));
+//        model.addAttribute("imgLoading", path);
+//        return "/Notice/getNotice";
+//    }
     @GetMapping("/getNotice")
-    public String getNotice(Notice notice, Reply reply, Model model) {
+    public String getNotice(Notice notice, Model model) {
         List<FileUploadEntity> fileUploadEntity = noticeService.getFileUploadEntity2(notice.getSeq());
         List<String> path = new ArrayList<>();
         for (FileUploadEntity fe : fileUploadEntity) {
             String savePath = "/Notice/image/" + fe.getUuid() + "_" + fe.getOriginalFilename();
             path.add(savePath);
         }
-        /* 조회수 */
         noticeService.updateCnt(notice.getSeq());
-        model.addAttribute("reply", replyService.getReplyList(reply));
-        List<Reply> replyList = replyService.getReplyList(reply);
         model.addAttribute("notice", noticeService.getNotice(notice));
         model.addAttribute("imgLoading", path);
         return "/Notice/getNotice";
+
     }
 
     //공지사항 수정
@@ -186,10 +203,5 @@ import java.util.UUID;
         return "/Notice/searchList";
     }
 
-    @PostMapping("/{notice_seq}/reply")
-    public String insertReply(@PathVariable int notice_seq, @RequestBody Reply reply) {
-        noticeService.insertReply(notice_seq,reply);
-        return "/Notice/getNotice";
-    }
 }
 
