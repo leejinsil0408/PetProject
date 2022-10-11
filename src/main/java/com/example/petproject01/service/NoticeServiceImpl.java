@@ -28,6 +28,8 @@ public class NoticeServiceImpl implements NoticeService {
     private NoticeRepository noticeRepo;
     private FileRepository fileRepo;
 
+    private ReplyRepository replRepo;
+
     @Autowired
     protected NoticeServiceImpl(NoticeRepository noticeRepo, FileRepository fileRepo){
         this.noticeRepo = noticeRepo;
@@ -51,21 +53,11 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Notice getNotice(Notice notice) {
+    public Notice getNotice(Notice notice, Long seq) {
 
         return noticeRepo.findById(notice.getSeq()).get();
     }
 
-    @Override
-    public Notice getNotice1(Long seq) {
-        Optional<Notice> notice = noticeRepo.findById(seq);
-        if(notice.isPresent()) {
-            return notice.get();
-        }
-        else {
-            throw new DataNotFoundException("not found");
-        }
-    }
 
     @Override
     public void updateNotice(Notice notice) {

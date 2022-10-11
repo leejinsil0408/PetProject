@@ -22,7 +22,7 @@ public class Reply {
     private Long r_seq;
 
     @Column(nullable = false)
-    private String r_content;
+    private String content;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date r_createDate;
