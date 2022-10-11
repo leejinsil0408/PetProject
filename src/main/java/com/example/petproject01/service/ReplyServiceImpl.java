@@ -15,12 +15,11 @@ import java.util.Optional;
 public class ReplyServiceImpl implements ReplyService {
     @Autowired
     private ReplyRepository replRepo;
-//    private NoticeRepository noticeRepo;
 
     @Override
-    public void create(Notice notice, String content) {
+    public void create(Notice notice, String r_content) {
         Reply reply = new Reply();
-        reply.setContent(content);
+        reply.setR_content(r_content);
         reply.setR_createDate(new Date());
         reply.setNotice(notice);
         this.replRepo.save(reply);

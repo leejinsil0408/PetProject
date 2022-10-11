@@ -5,16 +5,17 @@ import com.example.petproject01.entity.Notice;
 import com.example.petproject01.entity.Reply;
 import com.example.petproject01.repository.NoticeRepository;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 public interface NoticeService {
 
@@ -23,7 +24,9 @@ public interface NoticeService {
 
     Long insertNotice(Notice notice);
 
-    Notice getNotice(Notice notice, Long seq);
+    Notice getNotice(Notice notice);
+
+    Notice getNotice1(Long seq);
 
 
     void updateNotice(Notice notice);

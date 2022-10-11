@@ -10,27 +10,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/Notice")
+@RequestMapping("/reply")
 @RequiredArgsConstructor
 //@RestController
 @Controller
 public class ReplyController {
 
-//    @Autowired
-    private final ReplyService replyService;
+    //    @Autowired
     private final NoticeService noticeService;
+    private final ReplyService replyService;
 
-    @PostMapping("/create/{r_seq}")
-    public String createReply(Model model, @PathVariable("r_seq") Long seq, @RequestParam String content) {
-        Notice notice = this.noticeService.getNotice(seq);
-        this.replyService.create(notice, content);
-        return String.format("redirect:/Notice/getNotice/%s", seq);
+    @PostMapping("/create/{seq}")
+    public String createReply(Model model, @PathVariable("seq") Long seq, @RequestParam String r_content) {
+        System.out.println("seq= " + seq + "string= " + r_content);
+        Notice notice = this.noticeService.getNotice1(seq);
+        this.replyService.create(notice, r_content);
+        return String.format("redirect:/Notice/getNotice?seq=" + seq);
     }
 }
-//    @PostMapping("/insertReply")
-//    public String insertReply(@PathVariable Long seq, @RequestBody Reply reply) {
+
+//    @PostMapping("/create/{seq}")
+//    public String createReply(Model model, @PathVariable("seq") Long seq, @RequestBody Reply reply) {
 //        replyService.insertReply(seq, reply);
-//        return "redirect:/Notice/getNotice";
+//        return "redirect:/Notice/getNotice?seq=" + seq;
 //    }
 //
 //    @GetMapping("/deleteReply")

@@ -2,11 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>공지사항 상세</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .fakeimg {
             height: 200px;
@@ -15,73 +10,73 @@
     </style>
 </head>
 <body th:align="center">
-    <h1>공지사항 상세</h1>
-    <form th:action="@{/Notice/updateNotice}" method="post">
-        <input name="seq" type="hidden" th:value="${notice.seq}">
-        <!--수정할게시글번호-->
-        <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
-            <tr>
-                <td bgcolor="orange" th:text="제목" width="80"></td>
-                <td><input name="title" type="text" th:value="${notice.title}"></td>
-                <!--제목수정-->
-            </tr>
-            <tr>
-                <td bgcolor="orange" th:text="작성자"></td>
-                <td th:text="${notice.writer}"></td>
-            </tr>
-            <tr>
-                <td bgcolor="orange" th:text="내용"></td>
-                <td>
+<h1>공지사항 상세</h1>
+<form th:action="@{/Notice/updateNotice}" method="post">
+    <input name="seq" type="hidden" th:value="${notice.seq}">
+    <!--수정할게시글번호-->
+    <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
+        <tr>
+            <td bgcolor="orange" th:text="제목" width="80"></td>
+            <td><input name="title" type="text" th:value="${notice.title}"></td>
+            <!--제목수정-->
+        </tr>
+        <tr>
+            <td bgcolor="orange" th:text="작성자"></td>
+            <td th:text="${notice.writer}"></td>
+        </tr>
+        <tr>
+            <td bgcolor="orange" th:text="내용"></td>
+            <td>
                     <textarea name="content" th:text="${notice.content}" cols="80" rows="30">
                     </textarea>
-                    <!--글삭제링크를 클릭했을때 삭제할 게시글의 일련번호를 파라미터로 전달-->
-                    <div th:each="img :${imgLoading}">
-                        <img th:src="@{${img}}" alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center">
-                        <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
-                        </div>
-                </td>
-            </tr>
-            <tr>
-                <td bgcolor="orange" th:text="등록일"></td>
-                <td th:text="${notice.createDate}"></td>
-            </tr>
-            <tr>
-                <td bgcolor="orange" th:text="조회수"></td>
-                <td th:text="${notice.cnt}"></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="게시글수정">
-                </td>
-            </tr>
-        </table>
-        <br/>
-        <a th:href="@{/Notice/getNoticeList}">목록</a>
-        <a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}" th:onclick="btnDel([[${notice.seq}]]);">글삭제</a>
-    </form>
-    <div th:text="${notice.content}"></div>
-    <h5 th:text="|${#lists.size(notice.replyList)}개의 답변이 있습니다.|"></h5>
-    <div>
-        <ul>
-            <li th:each="reply : ${notice.replyList}" th:text="${notice.content}"></li>
-        </ul>
-    </div>
-    <form th:action="@{|/Notice/create/${notice.seq}|}" method="post">
-        <textarea name="content" id="content" rows="15"></textarea>
-        <input type="submit" value="답변등록">
-    </form>
-    <script>
-        // 삭제 클릭 시 --> 컨펌 후 --> 할 일 처리
-        function btnDel( seq ) {
-            // 컨펌 처리
-            if( confirm( seq + "번 게시글을 정말 삭제하시겠습니까?") == true ) {
-                location.href = '/Notice/deleteNotice?num=' + seq;
-                //실제 삭제할 데이터를 쿼리스트링을 이용해 전달
-            }
-            else {
-                return;
-            }
+                <!--글삭제링크를 클릭했을때 삭제할 게시글의 일련번호를 파라미터로 전달-->
+                <div th:each="img :${imgLoading}">
+                    <img th:src="@{${img}}" alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center">
+                    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                    </div>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="orange" th:text="등록일"></td>
+            <td th:text="${notice.createDate}"></td>
+        </tr>
+        <tr>
+            <td bgcolor="orange" th:text="조회수"></td>
+            <td th:text="${notice.cnt}"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="게시글수정">
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <a th:href="@{/Notice/getNoticeList}">목록</a>
+    <a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}" th:onclick="btnDel([[${notice.seq}]]);">글삭제</a>
+</form>
+<div th:text="${notice.content}"></div>
+<h5 th:text="|${#lists.size(notice.replyList)}개의 답변이 있습니다.|"></h5>
+<div>
+    <ul>
+        <li th:each="reply : ${notice.replyList}" th:text="${reply.r_content}"></li>
+    </ul>
+</div>
+<form th:action="@{|/reply/create/${notice.seq}|}" method="post">
+    <textarea name="r_content" id="r_content" rows="15"></textarea>
+    <input type="submit" value="답변등록">
+</form>
+<script>
+    // 삭제 클릭 시 --> 컨펌 후 --> 할 일 처리
+    function btnDel( seq ) {
+        // 컨펌 처리
+        if( confirm( seq + "번 게시글을 정말 삭제하시겠습니까?") == true ) {
+            location.href = '/Notice/deleteNotice?num=' + seq;
+            //실제 삭제할 데이터를 쿼리스트링을 이용해 전달
         }
-    </script>
+        else {
+            return;
+        }
+    }
+</script>
 </body>
 </html>
