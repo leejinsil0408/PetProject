@@ -17,12 +17,19 @@ public class ReplyServiceImpl implements ReplyService {
     private ReplyRepository replRepo;
 
     @Override
-    public void create(Notice notice, String r_content) {
+    public void insertReply(Notice notice, String r_content) {
         Reply reply = new Reply();
         reply.setR_content(r_content);
         reply.setR_createDate(new Date());
         reply.setNotice(notice);
         this.replRepo.save(reply);
+    }
+
+    @Override
+    public void updateReply(Reply reply, String r_content) {
+        reply.setR_content(r_content);
+        this.replRepo.save(reply);
+
     }
 }
 //

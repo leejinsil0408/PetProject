@@ -59,8 +59,11 @@
         seq(변수명) = ${board.seq}(HTML(타임리프)에서의 데이터(클라이언트)
         -->
         <td> <a th:href="@{/Notice/getNotice(seq=${Notice.seq})}"
-                th:text="${Notice.title}"></a></td>
-        <!--        <td th:text="${board.title}"></td>-->
+                th:text="${Notice.title}"></a>
+            <span class="text-danger small ms-5"
+                  th:if="${#lists.size(Notice.replyList) > 0}"
+                  th:text="${#lists.size(Notice.replyList)}"> </span>
+        </td>
         <td th:text="${Notice.writer}"></td>
         <!--
             dates.format = 날짜를 일정형식으로 바꿔주는 포맷팅

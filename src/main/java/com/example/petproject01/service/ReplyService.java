@@ -13,13 +13,13 @@ import java.util.List;
 public interface ReplyService {
 
 
-    void create(Notice notice, String r_content);
+    void insertReply(Notice notice, String r_content);
 
 //List<Reply> getReplyList(Reply reply);
 //
 //void insertReply(Notice notice, String content);
 //
-//void updateReply(Reply reply);
+    void updateReply(Reply reply, String r_content);
 //
 //void deleteReply(Reply reply);
 

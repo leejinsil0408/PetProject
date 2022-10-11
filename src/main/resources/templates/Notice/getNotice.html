@@ -55,15 +55,19 @@
     <a th:href="@{/Notice/deleteNotice(seq=${notice.seq})}" th:onclick="btnDel([[${notice.seq}]]);">글삭제</a>
 </form>
 <div th:text="${notice.content}"></div>
-<h5 th:text="|${#lists.size(notice.replyList)}개의 답변이 있습니다.|"></h5>
+<h5 th:text="|${#lists.size(notice.replyList)}개의 댓글이 있습니다.|"></h5>
 <div>
     <ul>
         <li th:each="reply : ${notice.replyList}" th:text="${reply.r_content}"></li>
     </ul>
 </div>
-<form th:action="@{|/reply/create/${notice.seq}|}" method="post">
+<form th:action="@{|/reply/insertReply/${notice.seq}|}" method="post">
     <textarea name="r_content" id="r_content" rows="15"></textarea>
-    <input type="submit" value="답변등록">
+    <input type="submit" value="댓글등록">
+    <div class="my-3">
+        <a th:href="@{|reply/updateReply/${reply.r_seq}|}" class="btn btn-sm btn-outline-secondary"
+           th:text="수정"></a>
+    </div>
 </form>
 <script>
     // 삭제 클릭 시 --> 컨펌 후 --> 할 일 처리
