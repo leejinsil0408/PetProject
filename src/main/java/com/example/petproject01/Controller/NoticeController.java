@@ -2,12 +2,8 @@ package com.example.petproject01.Controller;
 
 import com.example.petproject01.entity.Data.FileUploadEntity;
 import com.example.petproject01.entity.Notice;
-import com.example.petproject01.entity.Reply;
-import com.example.petproject01.repository.NoticeRepository;
 import com.example.petproject01.service.ReplyService;
-import com.example.petproject01.service.ReplyServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.*;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -135,7 +130,7 @@ import java.util.UUID;
         noticeService.updateCnt(notice.getSeq());
         model.addAttribute("notice", noticeService.getNotice(notice));
         model.addAttribute("imgLoading", path);
-        return "/Notice/getNotice";
+        return "01getNotice";
 
     }
 
