@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
+  Page<Notice> findAll(Pageable pageable);
 
   //검색
   @Query(value = "SELECT n FROM Notice n WHERE n.title LIKE %:keyword% OR n.content LIKE %:keyword% OR n.writer LIKE %:keyword%")

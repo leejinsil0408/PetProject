@@ -41,22 +41,30 @@ import java.util.UUID;
         this.replyService = replyService;
     }
 
-    //공지사항 목록
-    @GetMapping("/getNoticeList")
-    public String NoticeList(
-            @PageableDefault(size=5, sort="seq", direction = Sort.Direction.DESC) Pageable pageable, Model model, Notice notice) {
+    //공지사항
+
+    @RequestMapping("/getNoticeList")
+    public String NoticeList(Notice notice, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         List<Notice> noticeList = noticeService.NoticeList(notice);
-        Page<Notice> noticePage = noticeService.NOTICE_PAGE(pageable);
-        System.out.println("전체 페이지 개수=" + noticePage.getTotalPages());
-        System.out.println("전체 레코드 개수=" + noticePage.getTotalElements());
-        System.out.println("현재 페이지 개수=" + noticePage.getNumber());
-        System.out.println("한 페이지의 글 개수=" + noticePage.getSize());
-        System.out.println("정렬=" + noticePage.getSort());
-        System.out.println("number,size,sort=" + noticePage.getPageable());
-        model.addAttribute("noticeList",noticeList);
-        model.addAttribute("noticePage",noticePage);
+        Page<Notice> noticePage = this.noticeService.NOTICE_PAGE(page);
+        model.addAttribute("noticeList", noticeList);
+        model.addAttribute("noticePage", noticePage);
         return "/Notice/getNoticeList";
     }
+//    @GetMapping("/getNoticeList")
+//    public String NoticeList(
+//            @PageableDefault(size=5, sort="seq", direction = Sort.Direction.DESC) Pageable pageable, Model model, Notice notice) {
+//        List<Notice> noticeList = noticeService.NoticeList(notice);
+//        Page<Notice> noticePage = noticeService.NOTICE_PAGE(pageable);
+//        System.out.println("전체 페이지 개수=" + noticePage.getTotalPages());
+//        System.out.println("전체 레코드 개수=" + noticePage.getTotalElements());
+//        System.out.println("현재 페이지 개수=" + noticePage.getNumber());
+//        System.out.println("한 페이지의 글 개수=" + noticePage.getSize());
+//        System.out.println("정렬=" + noticePage.getSort());
+//        System.out.println("number,size,sort=" + noticePage.getPageable());
+//        model.addAttribute("noticeList",noticeList);
+//        model.addAttribute("noticePage",noticePage);
+//        return "/Notice/getNoticeList";
 
     //공지사항 쓰기
     @GetMapping("/insertNotice")

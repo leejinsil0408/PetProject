@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <!--타임리프 선언 (사용하겠다는 선언)-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    ul > li {
+        display: inline-block;
+        border: 0px solid;
+        padding: 10px;
+    }
+    ul {
+        margin-left: -50px;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
@@ -34,7 +44,7 @@
     <tbody>
     <!--model에 있는 데이터를 타임리프는 html에 뿌려주게 되고, 순수한 html파일로 만들어서 톰캣에 전달-->
     <!--    each : for문-->
-    <!--    모델에 있는 boardList 배열을 순회해서 board라는 객체를 하나씩 출력 (유사 : 향상된 for문-->
+    <!--    모델에 있는 boardList 배열을 순회해서 notice라는 객체를 하나씩 출력 (유사 : 향상된 for문-->
     <tr th:each="Notice, loop :${noticePage}">
         <td th:text="${loop.count}"></td>
 <!--        <td th:text="${Notice.seq}"></td>-->
@@ -60,32 +70,31 @@
         <td th:text="${Notice.cnt}"></td>
     </tr>
 </table>
+<!-- 페이징처리 시작 -->
+<div th:if="${!noticePage.isEmpty()}">
+    <ul class="pagination justify-content-center">
+        <li class="page-item" th:classappend="${!noticePage.hasPrevious} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{|?page=${noticePage.number-1}|}">
+                <span>이전</span>
+            </a>
+        </li>
+        <li th:each="page: ${#numbers.sequence(0, noticePage.totalPages-1)}"
+            th:if="${page >= noticePage.number-5 and page <= noticePage.number+5}"
+            th:classappend="${page == noticePage.number} ? 'active'"
+            class="page-item">
+            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+        </li>
+        <li class="page-item" th:classappend="${!noticePage.hasNext} ? 'disabled'">
+            <a class="page-link" th:href="@{|?page=${noticePage.number+1}|}">
+                <span>다음</span>
+            </a>
+        </li>
+    </ul>
 </div>
-<p>
-    총 공지사항 갯수 <span style="color: red; font-weight: bold" th:text="${noticePage.totalElements}">4</span> &nbsp;&nbsp;&nbsp;
-    현재 페이지 <span style="color: green; font-weight: bold" th:text="${noticePage.pageable.pageNumber+1}">1</span> /
-    총 페이지 <span style="color: blue; font-weight: bold" th:text="${noticePage.totalPages}">5</span>
-</p>
-<ul>
-    <li>
-        <th:block th:if="${ noticePage.pageable.pageNumber+1 == 1 }">
-            <span style="color: #999">Previous</span>
-        </th:block>
-        <th:block th:unless="${ noticePage.pageable.pageNumber+1 == 1 }">
-            <a href="#" th:href="@{/Notice/getNoticeList(page=${noticePage.pageable.pageNumber}-1,size=3)}">Previous</a>
-        </th:block>
-    </li>
-    <li>/</li>
-    <li>
-        <th:block th:if="${ noticePage.totalPages == noticePage.number+1 }">
-            <span style="color: #999">Next</span>
-        </th:block>
-        <th:block th:unless="${ noticePage.totalPages == noticePage.number+1 }">
-            <a href="#" th:href="@{/Notice/getNoticeList(page=${noticePage.number}+1,size=3)}">Next</a>
-        </th:block>
-    </li>
-</ul>
+    <!-- 페이징처리 끝 -->
+    <a th:href="@{/Notice/insertNotice}" class="btn btn-primary">글 등록하기</a>
+</div>
 <hr>
-<a th:href="@{/Notice/insertNotice}">글등록</a>
 </body>
 </html>

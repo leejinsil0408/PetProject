@@ -40,8 +40,10 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Page<Notice> NOTICE_PAGE(Pageable pageable) {
-        return noticeRepo.findAll(pageable);}
+    public Page<Notice> NOTICE_PAGE(int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.noticeRepo.findAll(pageable);
+    }
 
     @Override
     public Long insertNotice(Notice notice) {

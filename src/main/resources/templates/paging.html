@@ -1,0 +1,24 @@
+<!--<p>-->
+<!--    총 공지사항 갯수 <span style="color: red; font-weight: bold" th:text="${noticePage.totalElements}">4</span> &nbsp;&nbsp;&nbsp;-->
+<!--    현재 페이지 <span style="color: green; font-weight: bold" th:text="${noticePage.pageable.pageNumber+1}">1</span> /-->
+<!--    총 페이지 <span style="color: blue; font-weight: bold" th:text="${noticePage.totalPages}">5</span>-->
+<!--</p>-->
+<!--<ul>-->
+<!--    <li>-->
+<!--        <th:block th:if="${ noticePage.pageable.pageNumber+1 == 1 }">-->
+<!--            <span style="color: #999">Previous</span>-->
+<!--        </th:block>-->
+<!--        <th:block th:unless="${ noticePage.pageable.pageNumber+1 == 1 }">-->
+<!--            <a href="#" th:href="@{/Notice/getNoticeList(page=${noticePage.pageable.pageNumber}-1,size=5)}">Previous</a>-->
+<!--        </th:block>-->
+<!--    </li>-->
+<!--    <li>/</li>-->
+<!--    <li>-->
+<!--        <th:block th:if="${ noticePage.totalPages == noticePage.number+1 }">-->
+<!--            <span style="color: #999">Next</span>-->
+<!--        </th:block>-->
+<!--        <th:block th:unless="${ noticePage.totalPages == noticePage.number+1 }">-->
+<!--            <a href="#" th:href="@{/Notice/getNoticeList(page=${noticePage.number}+1,size=5)}">Next</a>-->
+<!--        </th:block>-->
+<!--    </li>-->
+<!--</ul>-->

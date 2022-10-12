@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public interface NoticeService {
 
     List<Notice> NoticeList(Notice notice);
-    Page<Notice> NOTICE_PAGE(Pageable pageable);
+    Page<Notice> NOTICE_PAGE(int page);
 
     Long insertNotice(Notice notice);
 
@@ -44,9 +44,6 @@ public interface NoticeService {
     List<Notice> searchNotice(String keyword);
 
     int updateCnt(Long seq);
-
-//    @Transactional
-//    void insertReply(long seq, Reply reply);
 
     }
 
