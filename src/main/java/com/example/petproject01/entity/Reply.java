@@ -31,7 +31,6 @@ public class Reply {
     @JoinColumn(name= "Notice_seq" ) //참조하고자 하는 테이블 entity
     private Notice notice;
 
-
     public void save(Notice notice) {
         this.notice = notice;
     }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -15,12 +16,16 @@ public interface ReplyService {
 
     void insertReply(Notice notice, String r_content);
 
-//List<Reply> getReplyList(Reply reply);
+
+    Reply getReply(Reply reply);
+
+    void updateReply(Reply reply);
+
+    void deleteReply(Reply reply);
+
+//    Reply getReply(Long r_seq);
 //
-//void insertReply(Notice notice, String content);
-//
-    void updateReply(Reply reply, String r_content);
-//
-//void deleteReply(Reply reply);
+//void updateReply(Reply reply, String r_content);
+
 
 }

@@ -74,8 +74,6 @@ import java.util.UUID;
 
     @PostMapping("/insertNotice")
     public String insertNotice(Notice notice, @Nullable @RequestParam("uploadfile") MultipartFile[] uploadfile) {
-//            model.addAttribute("message","글 작성이 완료되었습니다.");
-//            model.addAttribute("searchUrl","redirect:/Notice/getNoticeList");
         notice.setCreateDate(new Date());
         try {
             //boardService.insertBoard 메서드에서는 DB에 데이터를 저장하고 저장된 board_seq를 리턴 받음
@@ -205,6 +203,5 @@ import java.util.UUID;
         model.addAttribute("keyword", noticeService.searchNotice(keyword));
         return "/Notice/searchList";
     }
-
 }
 

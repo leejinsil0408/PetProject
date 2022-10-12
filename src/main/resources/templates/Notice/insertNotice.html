@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 <head>
     <meta charset="UTF-8">
     <title>질문등록</title>
 </head>
 <body th:align="center">
-<div layout:fragment="content" class="container">
-<h5 class="my-3 border-bottom pb-2">질문등록</h5>
+<div class="container my-3">
+<h1 class="my-3 border-bottom pb-2"> 공지사항 등록</h1>
 <!--
     [클라이언트] html의 form태그를 통한 submit액션을 실행하면 [서버]로 전달되는 mapping주소
     th:action="insertBoard"
@@ -28,10 +29,16 @@
         </div>
         <input type="submit" value="저장하기" class="btn btn-primary my-2">
     <div class="p-2 w-full">
-    <input multiple="multiple" type="file" name="uploadfile"/>
-    <input multiple="multiple" type="file" name="uploadfile"/>
-    <input multiple="multiple" type="file" name="uploadfile"/>
-    <input multiple="multiple" type="file" name="uploadfile"/>
+        <form>
+        <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">이미지 등록 </label>
+            <input class= "form-control" multiple="multiple" type="file" id="formFileMultiple" name="uploadfile">
+        </div>
+        </form>
+<!--    <input multiple="multiple" type="file" name="uploadfile"/>-->
+<!--    <input multiple="multiple" type="file" name="uploadfile"/>-->
+<!--    <input multiple="multiple" type="file" name="uploadfile"/>-->
+<!--    <input multiple="multiple" type="file" name="uploadfile"/>-->
     </div>
 <a th:href="@{/Notice/getNoticeList}">공지사항 목록</a>
 <hr>

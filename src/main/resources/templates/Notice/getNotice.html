@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 <head>
     <title>공지사항 상세</title>
 </head>
 <body th:align="center">
+<div class="container my-3">
 <h1>공지사항 상세</h1>
 <form th:action="@{/Notice/updateNotice}" method="post">
     <input name="seq" type="hidden" th:value="${notice.seq}">
@@ -61,6 +63,9 @@
     <div class="my-3">
         <a th:href="@{|reply/updateReply/${notice.seq}|}" class="btn btn-sm btn-outline-secondary"
            th:text="수정"></a>
+        <a href="javascript:void(0);" th:data-uri="@{|/reply/deleteReply/${notice.seq}|}"
+           class="delete btn btn-sm btn-outline-secondary"
+           th:text="삭제"></a>
     </div>
 </form>
 <script>
@@ -76,5 +81,16 @@
         }
     }
 </script>
+
+<!--    <script type='text/javascript'>-->
+<!--        const delete_elements = document.getElementsByClassName("delete");-->
+<!--        Array.from(delete_elements).forEach(function(element) {-->
+<!--            element.addEventListener('click', function() {-->
+<!--                if(confirm("정말로 삭제하시겠습니까?")) {-->
+<!--                    location.href = this.dataset.uri;-->
+<!--                };-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
 </body>
 </html>

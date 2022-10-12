@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>검색결과</title>
     <meta http-equiv = "Content-Type" content = "text/html; charset = UTF-8">
-    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" type="text/css" />
-
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 </head>
-
 <body th:align="center">
-
 <h2>공지사항 검색 목록</h2>
-
-
-<table class="table table-striped" th:align="center" border = "1" th:cellpadding = "1" th:cellspacing = "1" th:width="750px">
-
+<table class="table table-striped" th:align="center" border = "1"
+       th:cellpadding = "1" th:cellspacing = "1" th:width="750px">
     <tr>
         <th th:width = "50">No</th>
         <th th:width = "150">제목</th>

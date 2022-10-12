@@ -46,7 +46,7 @@
     <!--    each : for문-->
     <!--    모델에 있는 boardList 배열을 순회해서 notice라는 객체를 하나씩 출력 (유사 : 향상된 for문-->
     <tr th:each="Notice, loop :${noticePage}">
-        <td th:text="${loop.count}"></td>
+        <td th:text="${noticePage.getTotalElements - (noticePage.number * noticePage.size) - loop.index}"></td>
 <!--        <td th:text="${Notice.seq}"></td>-->
         <!--
         a태그를 사용하여 링크를 만들고,
