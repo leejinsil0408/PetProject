@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RequestMapping("/reply")
 @RequiredArgsConstructor
 @Controller
@@ -28,8 +30,9 @@ public class ReplyController {
     }
 
     @GetMapping("/updateReply/{seq}")
-    public String updateReply(Reply reply) {
-        replyService.updateReply(reply);
+    public String updateReply(@PathVariable("seq") Long seq, Reply reply, @RequestParam String r_content) {
+        Notice notice = this.noticeService.getNotice1(seq);
+        replyService.updateReply(reply, r_content);
         return "redirect:/Notice/getNotice?=seq" + reply.getR_seq();
     }
 

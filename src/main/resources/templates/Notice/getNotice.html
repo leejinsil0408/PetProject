@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 <head>
     <title>공지사항 상세</title>
-    <style>
-        .fakeimg {
-            height: 200px;
-            background: #aaa;
-        }
-    </style>
 </head>
 <body th:align="center">
 <h1>공지사항 상세</h1>
@@ -65,7 +60,7 @@
     <textarea name="r_content" id="r_content" rows="15"></textarea>
     <input type="submit" value="댓글등록">
     <div class="my-3">
-        <a th:href="@{|reply/updateReply/${reply.r_seq}|}" class="btn btn-sm btn-outline-secondary"
+        <a th:href="@{|reply/updateReply/${notice.seq}|}" class="btn btn-sm btn-outline-secondary"
            th:text="수정"></a>
     </div>
 </form>
