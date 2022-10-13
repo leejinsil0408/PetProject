@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 public class Reply {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "Notice_seq")
     //댓글번호, 작성자, 내용, 원글
     private Long r_seq;
 
@@ -28,6 +28,7 @@ public class Reply {
     private Date r_createDate;
 
     @ManyToOne
+    @JoinColumn
     private Notice notice;
 
     public void save(Notice notice) {

@@ -22,7 +22,7 @@ public interface ReplyService {
 
     void deleteReply(Reply reply);
 
-    void replyModify(Reply reply, String content);
+    void replyModify(Reply reply);
 
 //    Reply getReply(Long r_seq);
 //

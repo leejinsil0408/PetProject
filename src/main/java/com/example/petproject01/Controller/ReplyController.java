@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/Reply")
 @RequiredArgsConstructor
 @Controller
 @Setter
@@ -24,7 +23,7 @@ public class ReplyController {
 
 
     //댓글 등록
-    @PostMapping("/insertReply/{seq}")
+    @PostMapping("/Reply/insertReply/{seq}")
     public String insertReply(Model model, @PathVariable("seq") Long seq, @RequestParam String r_content) {
         Notice notice = this.noticeService.getNotice1(seq);
         this.replyService.insertReply(notice, r_content);
@@ -39,17 +38,30 @@ public class ReplyController {
 //    }
 
     //댓글 수정
-    @GetMapping("/modify/{r_seq}")
+    @GetMapping("/Reply/modify/{r_seq}")
     public String replyModify(Reply reply, Model model) {
         model.addAttribute("reply", replyService.getReply(reply.getR_seq()));
+        System.out.println("GET댓글");
         return "Reply/replyForm";
     }
 
-    @PostMapping("/modify/{r_seq}")
-    public String replyModify(Reply reply) {
-        replyService.replyModify(reply, reply.getR_content());
-        return "Reply/replyForm";
+    @PostMapping("/Reply/modify/{r_seq}")
+    public String replyModify(ReplyForm replyForm,@PathVariable("r_seq") Long seq) {
+        Reply reply1 = this.replyService.getReply(seq);
+        replyForm.setR_content(reply.getR_content());
+////        reply = replyService.getReply(seq);
+//        reply = replyService.getReply(reply.getR_seq());
+//        this.replyService.replyModify(reply);
+//        System.out.println("Post댓글");
+//        return String.format("redirect:/Notice/getNotice?seq=" + reply.getNotice().getSeq());
+          return "Reply/replyForm";
     }
+
+//    @PostMapping("/modify/{seq}")
+//    public String replyModify(Reply reply,@PathVariable("seq") Long seq) {
+//        replyService.replyModify(reply, reply.getR_content());
+//        return  String.format("redirect:/Notice/getNotice?seq="+ seq);
+//    }  --> DB에는 저장되는데 페이지는 reply seq를 가져와서 에러 뜸  (notice seq를 가져와야 함)
 }
 //    @GetMapping("/updateReply/{r_seq}")
 //    public String updateReplyView(Reply reply, Model model) {

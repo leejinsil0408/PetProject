@@ -37,10 +37,10 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public void replyModify(Reply reply, String r_content) {
+    public void replyModify(Reply reply) {
         Reply findReply = replRepo.findById(reply.getR_seq()).get();
-        findReply.setR_content(r_content);
-        replRepo.save(reply);
+        findReply.setR_content(reply.getR_content());
+        replRepo.save(findReply);
     }
 //    @Override
 //    public void updateReply(Reply reply) {
