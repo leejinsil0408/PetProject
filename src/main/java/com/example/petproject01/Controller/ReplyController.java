@@ -39,17 +39,16 @@ public class ReplyController {
 //    }
 
     //댓글 수정
-//    @GetMapping("/modify/{r_seq}")
-//    public String replyModify(Reply reply, Model model) {
-//        model.addAttribute("reply", replyService.getReply(reply.getR_seq()));
-//        return "Reply/replyForm";
-//    }
+    @GetMapping("/modify/{r_seq}")
+    public String replyModify(Reply reply, Model model) {
+        model.addAttribute("reply", replyService.getReply(reply.getR_seq()));
+        return "Reply/replyForm";
+    }
 
-    @GetMapping("")
     @PostMapping("/modify/{r_seq}")
     public String replyModify(Reply reply) {
         replyService.replyModify(reply, reply.getR_content());
-        return String.format("redirect:/Notice/getNotice/%s", reply.getNotice().getSeq());
+        return "Reply/replyForm";
     }
 }
 //    @GetMapping("/updateReply/{r_seq}")

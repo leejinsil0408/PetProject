@@ -53,7 +53,7 @@
         <br>
         <br>
         <!-- 댓글 작성 -->
-        <form th:action="@{|/reply/insertReply/${notice.seq}|}" method="post" class="my-3">
+        <form th:action="@{|/Reply/insertReply/${notice.seq}|}" method="post" class="my-3">
             <textarea name="r_content" id="r_content" rows="10" class="form-control"></textarea>
             <input type="submit" value="댓글등록" class="btn btn-primary my-2">
         </form>

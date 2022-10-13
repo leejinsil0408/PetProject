@@ -38,8 +38,9 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public void replyModify(Reply reply, String r_content) {
-        reply.setR_content(r_content);
-        this.replRepo.save(reply);
+        Reply findReply = replRepo.findById(reply.getR_seq()).get();
+        findReply.setR_content(r_content);
+        replRepo.save(reply);
     }
 //    @Override
 //    public void updateReply(Reply reply) {
