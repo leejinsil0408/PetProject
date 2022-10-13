@@ -16,16 +16,16 @@ public interface ReplyService {
 
     void insertReply(Notice notice, String r_content);
 
+    Reply getReply(Long r_seq);
 
-    Reply getReply(Reply reply);
-
-    void updateReply(Reply reply);
+//    void updateReply(Reply reply);
 
     void deleteReply(Reply reply);
+
+    void replyModify(Reply reply, String content);
 
 //    Reply getReply(Long r_seq);
 //
 //void updateReply(Reply reply, String r_content);
-
 
 }

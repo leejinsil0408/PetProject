@@ -27,18 +27,27 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public Reply getReply(Reply reply) {
-
-        return replRepo.findById(reply.getR_seq()).get();
+    public Reply getReply(Long r_seq) {
+        Optional<Reply> reply = this.replRepo.findById(r_seq);
+        if (reply.isPresent()) {
+            return reply.get();
+        }else {
+            throw new DataNotFoundException("reply not found");
+        }
     }
 
     @Override
-    public void updateReply(Reply reply) {
-        Reply findReply = replRepo.findById(reply.getR_seq()).get();
-        findReply.setR_seq(reply.getR_seq());
-        findReply.setR_content(reply.getR_content());
-        replRepo.save(findReply);
+    public void replyModify(Reply reply, String r_content) {
+        reply.setR_content(r_content);
+        this.replRepo.save(reply);
     }
+//    @Override
+//    public void updateReply(Reply reply) {
+//        Reply findReply = replRepo.findById(reply.getR_seq()).get();
+//        findReply.setR_seq(reply.getR_seq());
+//        findReply.setR_content(reply.getR_content());
+//        replRepo.save(findReply);
+//    }
 
     @Override
     public void deleteReply(Reply reply) {

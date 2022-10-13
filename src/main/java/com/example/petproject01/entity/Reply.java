@@ -28,7 +28,6 @@ public class Reply {
     private Date r_createDate;
 
     @ManyToOne
-    @JoinColumn(name= "Notice_seq" ) //참조하고자 하는 테이블 entity
     private Notice notice;
 
     public void save(Notice notice) {

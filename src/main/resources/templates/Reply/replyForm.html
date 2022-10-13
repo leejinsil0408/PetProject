@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <head>
     <meta charset="UTF-8">
     <title>댓글 수정</title>
@@ -8,7 +9,7 @@
 <body>
 <div class="container">
     <h5 class="my-3 border-bottom pb-2">댓글 수정</h5>
-    <form th:action="@{/Notice/insertNotice}" th:object="${replyForm}" method="post">
+    <form th:object="${replyForm}" method="post">
         <div class="mb-3">
             <label for="r_content" class="form-label">내용</label>
             <textarea class="form-control" rows="10" id="r_content" name="r_content"></textarea>
