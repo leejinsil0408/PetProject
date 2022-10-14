@@ -49,10 +49,9 @@ public class ReplyController {
 
     //댓글 수정
     @PostMapping("/Reply/modify/{r_seq}")
-    public String replyModify(Reply reply, @PathVariable("r_seq") Long seq) {
-        reply = replyService.getReply(seq);
-        replyService.replyModify(reply);
-        reply.setR_content(reply.getR_content());
+    public String replyModify(Reply reply, @PathVariable("r_seq") Long r_seq) {
+        Reply reply1 = this.replyService.getReply(r_seq);
+        this.replyService.replyModify(reply1, reply.getR_content());
         return String.format("redirect:/Notice/getNotice?seq=" + reply.getNotice().getSeq());
     }
 

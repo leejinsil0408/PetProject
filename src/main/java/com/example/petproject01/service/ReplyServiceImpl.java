@@ -39,12 +39,13 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public void replyModify(Reply reply) {
-        Reply findReply = replRepo.findById(reply.getR_seq()).get();
+    public void replyModify(Reply reply, String r_content) {
+//        Reply findReply = replRepo.findById(reply.getR_seq()).get();
 //        findReply.setR_seq(reply.getR_seq());
-        findReply.setR_content(reply.getR_content());
-        findReply.setNotice(findReply.getNotice());
-        this.replRepo.save(findReply);
+//        findReply.setR_content(reply.getR_content());
+//        findReply.setNotice(findReply.getNotice());
+        reply.setR_content(r_content);
+        this.replRepo.save(reply);
     }
 
     @Override
