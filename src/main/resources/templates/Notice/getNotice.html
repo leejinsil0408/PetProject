@@ -72,6 +72,9 @@
                 <div class="my-3">
                     <a th:href="@{|/Reply/modify/${reply.r_seq}|}" class="btn btn-sm btn-outline-secondary"
                        th:text="수정"></a>
+                    <a href="javascript:void(0);" th:data-uri="@{|/deleteReply/${reply.r_seq}|}"
+                       class="delete btn btn-sm btn-outline-secondary"
+                       th:text="삭제"></a>
                 </div>
             </div>
         </div>
@@ -91,15 +94,15 @@
             }
         }
     </script>
-<!--    <script type='text/javascript'>-->
-<!--        const delete_elements = document.getElementsByClassName("delete");-->
-<!--        Array.from(delete_elements).forEach(function(element) {-->
-<!--            element.addEventListener('click', function() {-->
-<!--                if(confirm("정말로 삭제하시겠습니까?")) {-->
-<!--                    location.href = this.dataset.uri;-->
-<!--                };-->
-<!--            });-->
-<!--        });-->
-<!--    </script>-->
+    <script type='text/javascript'>
+        const delete_elements = document.getElementsByClassName("delete");
+        Array.from(delete_elements).forEach(function(element) {
+            element.addEventListener('click', function() {
+                if(confirm("정말로 삭제하시겠습니까?")) {
+                    location.href = this.dataset.uri;
+                };
+            });
+        });
+    </script>
     </body>
 </html>

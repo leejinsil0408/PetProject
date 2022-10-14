@@ -3,6 +3,7 @@ package com.example.petproject01.service;
 import com.example.petproject01.entity.Notice;
 import com.example.petproject01.entity.Reply;
 import com.example.petproject01.exception.DataNotFoundException;
+import com.example.petproject01.repository.NoticeRepository;
 import com.example.petproject01.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class ReplyServiceImpl implements ReplyService {
     @Autowired
     private ReplyRepository replRepo;
+    private NoticeRepository noticeRepo;
 
     @Override
     public void insertReply(Notice notice, String r_content) {
@@ -39,20 +41,15 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void replyModify(Reply reply) {
         Reply findReply = replRepo.findById(reply.getR_seq()).get();
-        findReply.setR_content(reply.getR_content());
-        replRepo.save(findReply);
-    }
-//    @Override
-//    public void updateReply(Reply reply) {
-//        Reply findReply = replRepo.findById(reply.getR_seq()).get();
 //        findReply.setR_seq(reply.getR_seq());
-//        findReply.setR_content(reply.getR_content());
-//        replRepo.save(findReply);
-//    }
+        findReply.setR_content(reply.getR_content());
+        findReply.setNotice(findReply.getNotice());
+        this.replRepo.save(findReply);
+    }
 
     @Override
     public void deleteReply(Reply reply) {
-        replRepo.deleteById(reply.getR_seq());
+        this.replRepo.delete(reply);
     }
 }
 //    @Transactional

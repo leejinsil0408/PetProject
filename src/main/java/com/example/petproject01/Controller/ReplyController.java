@@ -37,7 +37,25 @@ public class ReplyController {
 //        return "redirect:/Notice/getReply?seq=" + reply.getR_seq();
 //    }
 
+    //    @PostMapping("/Reply/modify/{r_seq}")
+//    public String replyModify(Reply reply,@PathVariable("r_seq") Long seq) {
+//        reply = replyService.getReply(seq);
+//        reply = replyService.getReply(reply.getR_seq());
+//        reply.setNotice(noticeService.getNotice1(seq));
+//        replyService.replyModify(reply);
+//        System.out.println("r");
+//        System.out.println("Post댓글");
+//        return String.format("redirect:/Notice/getNotice?seq=" + reply.getNotice().getSeq());
+
     //댓글 수정
+    @PostMapping("/Reply/modify/{r_seq}")
+    public String replyModify(Reply reply, @PathVariable("r_seq") Long seq) {
+        reply = replyService.getReply(seq);
+        replyService.replyModify(reply);
+        reply.setR_content(reply.getR_content());
+        return String.format("redirect:/Notice/getNotice?seq=" + reply.getNotice().getSeq());
+    }
+
     @GetMapping("/Reply/modify/{r_seq}")
     public String replyModify(Reply reply, Model model) {
         model.addAttribute("reply", replyService.getReply(reply.getR_seq()));
@@ -45,37 +63,22 @@ public class ReplyController {
         return "Reply/replyForm";
     }
 
-    @PostMapping("/Reply/modify/{r_seq}")
-    public String replyModify(ReplyForm replyForm,@PathVariable("r_seq") Long seq) {
-        Reply reply1 = this.replyService.getReply(seq);
-        replyForm.setR_content(reply.getR_content());
-////        reply = replyService.getReply(seq);
-//        reply = replyService.getReply(reply.getR_seq());
-//        this.replyService.replyModify(reply);
-//        System.out.println("Post댓글");
-//        return String.format("redirect:/Notice/getNotice?seq=" + reply.getNotice().getSeq());
-          return "Reply/replyForm";
-    }
 
-//    @PostMapping("/modify/{seq}")
-//    public String replyModify(Reply reply,@PathVariable("seq") Long seq) {
-//        replyService.replyModify(reply, reply.getR_content());
-//        return  String.format("redirect:/Notice/getNotice?seq="+ seq);
-//    }  --> DB에는 저장되는데 페이지는 reply seq를 가져와서 에러 뜸  (notice seq를 가져와야 함)
-}
+
 //    @GetMapping("/updateReply/{r_seq}")
 //    public String updateReplyView(Reply reply, Model model) {
 //        model.addAttribute("reply", replyService.getReply(reply));
 //        return "/Notice/getReply";
 //    }
 
-//        //댓글 삭제
-//        @GetMapping("/deleteReply")
-//        public String deleteReply(Reply reply){
-//            replyService.deleteReply(reply);
-//            return "redirect:/Notice/getNotice";
-//        }
-//    }
+        //댓글 삭제
+        @GetMapping("/deleteReply/{r_seq}")
+        public String deleteReply(Reply reply, @PathVariable("r_seq")Long r_seq ) {
+        reply= this.replyService.getReply(r_seq);
+        this.replyService.deleteReply(reply);
+            return String.format("redirect:/Notice/getNotice?seq=%s", reply.getNotice().getSeq());
+        }
+    }
 
 //    @PostMapping ("/updateReply/{r_seq}")
 //    public String updateReply(ReplyForm replyForm, @PathVariable("r_seq") Long r_seq) {
